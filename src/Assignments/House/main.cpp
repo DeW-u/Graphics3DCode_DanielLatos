@@ -3,7 +3,7 @@
 int main()
 {
 
-    SimpleShapeApplication app(650, 480, "Triangle", true);
+    SimpleShapeApplication app(650, 480, "House", true);
     app.run(1);
 
     return 0;
