@@ -21,7 +21,7 @@ add_compile_definitions(XE_DEBUG)
 
 # GLAD
 set(MAJOR 4)
-set(MINOR 1)
+set(MINOR 6)
 set(GLAD_DEBUG OFF)
 
 if (APPLE) #Apple has deprecated OpenGL :( 
@@ -62,12 +62,12 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(glm)
 
 
-FetchContent_Declare(
-        spdlog
-        GIT_REPOSITORY https://github.com/gabime/spdlog.git
-        GIT_TAG v1.x
-)
-FetchContent_MakeAvailable(spdlog)
+# FetchContent_Declare(
+#         spdlog
+#         GIT_REPOSITORY https://github.com/gabime/spdlog.git
+#         GIT_TAG v1.x
+# )
+# FetchContent_MakeAvailable(spdlog)
 
 
 if (__VS_CODE__)

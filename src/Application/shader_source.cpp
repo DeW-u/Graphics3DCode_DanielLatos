@@ -1,4 +1,5 @@
 #include "Application/shader_source.h"
+#include <cstring>
 #include <regex>
 
 namespace {
