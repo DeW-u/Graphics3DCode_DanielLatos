@@ -35,3 +35,8 @@ Po terminie
 
 7.12.2022 13:00:59 OK
 
+# Camera movement
+
+23.12.2022 17:36 OK
+Po terminie. 
+
