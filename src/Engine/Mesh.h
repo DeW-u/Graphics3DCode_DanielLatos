@@ -6,16 +6,18 @@
 
 #include <vector>
 #include "glad/gl.h"
+#include "Engine/Material.h"
 
 #include "Application/RegisteredObject.h"
 
 namespace xe {
 
     struct SubMesh {
-        SubMesh(GLuint start, GLuint end) : start(start), end(end) {}
+        SubMesh(GLuint start, GLuint end, Material* mat) : start(start), end(end), mat(mat) {}
 
         GLuint start;
         GLuint end;
+        Material* mat;
 
         GLuint count() const { return end - start; }
     };
@@ -36,10 +38,13 @@ namespace xe {
 
         void vertex_attrib_pointer(GLuint index, GLuint size, GLenum type, GLsizei stride, GLsizei offset);
 
-        void add_submesh(GLuint start, GLuint end) {
-            submeshes_.push_back({start, end});
+        void add_submesh(GLuint start, GLuint end, Material* mat) {
+            submeshes_.push_back({start, end, mat});
         }
 
+        void add_submesh(GLuint start, GLuint end) {
+            submeshes_.push_back({start, end, nullptr});
+        }
 
         void draw() const;
 
@@ -50,7 +55,7 @@ namespace xe {
         GLuint i_buffer_;
 
         std::vector<SubMesh> submeshes_;
-
+        std::vector<xe::Material*> materials_;
     };
 
 
