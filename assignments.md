@@ -44,3 +44,8 @@ Po terminie.
 
 01.02.2023 12:03 OK
 
+# Materials
+
+13.02.2023 13:57 OK
+Ale Meshes przestał działać bo nie sparwdza Pan czy mat jest null przy odbindowaniu. Poza tym zupełnie niepotrzebnie tworzy Pan osobny mesh dla każej ścianki. Po to sa submesze w jednym meshu.
+
