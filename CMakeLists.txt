@@ -70,25 +70,20 @@ FetchContent_MakeAvailable(glm)
 # FetchContent_MakeAvailable(spdlog)
 
 
-if (__VS_CODE__)
-
     # GLSLang
 
     FetchContent_Declare(
             glslang
             GIT_REPOSITORY https://github.com/KhronosGroup/glslang.git
-
+            GIT_TAG main
     )
     FetchContent_MakeAvailable(glslang)
-
-
-endif ()
 
 find_package(OpenGL REQUIRED)
 
 # My part 
 
-link_libraries(OpenGL::GL glfw glm glad)
+link_libraries(OpenGL::GL glfw glm glad glslang)
 add_subdirectory(src/Application)
 
 if (EXISTS ${SOURCE_DIR}/ObjectReader)
@@ -106,7 +101,7 @@ endif ()
 
 
 #Assignments
-set(ASSIGNMENTS Triangle House Colors Indices Uniforms PVM Pyramid Resizing Zoom CameraMovement Materials Meshes)
+set(ASSIGNMENTS Triangle House Colors Indices Uniforms PVM Pyramid Resizing Zoom CameraMovement Materials Meshes Textures)
 
 set(ASSIGNMENTS_DIR ${SOURCE_DIR}/Assignments)
 link_libraries(application)
