@@ -56,14 +56,6 @@ void SimpleShapeApplication::init()
 
     GLuint texture;
 
-    glGenTextures(1, &texture);
-    glBindTexture(GL_TEXTURE_2D, texture);
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
     stbi_set_flip_vertically_on_load(true);
     GLint width, height, channels;
     auto texture_file = std::string(PROJECT_DIR) + "/Models/multicolor.png";
@@ -72,7 +64,16 @@ void SimpleShapeApplication::init()
         std::cerr<<"Could not read image from file `"<<texture_file<<"'\n";
     } else {
         std::cout<<"Loaded a "<<width<<"x"<<height<<" texture with "<<channels<<" channels\n";
+        
+        glGenTextures(1, &texture);
+        glBindTexture(GL_TEXTURE_2D, texture);
+
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, img);
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     }
     stbi_image_free(img);
 
@@ -103,7 +104,7 @@ void SimpleShapeApplication::init()
             strengthModificator
         ),
         texture,
-        1
+        0
     );
 
     pyramid = new xe::Mesh;
