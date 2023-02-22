@@ -7,4 +7,8 @@ add_library(Engine
         Mesh.h Mesh.cpp
         Material.h
         ColorMaterial.h ColorMaterial.cpp
-        utils.h utils.cpp camera.h camera_controler.h)
+        utils.h utils.cpp camera.h camera_controler.h
+        mesh_loader.h mesh_loader.cpp
+        texture.h texture.cpp)
+
+target_link_libraries(Engine PRIVATE spdlog::spdlog objreader)

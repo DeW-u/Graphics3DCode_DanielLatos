@@ -15,10 +15,7 @@
 #include "Engine/Material.h"
 #include "Engine/ColorMaterial.h"
 #include "Application/utils.h"
-
-#define STB_IMAGE_IMPLEMENTATION  1
-
-#include "3rdParty/stb/stb_image.h"
+#include "Engine/mesh_loader.h"
 
 float vertices[] = {
         -0.5f,  0.0f, -0.5f, 0.5000f, 0.8090f, //0
@@ -54,28 +51,28 @@ void SimpleShapeApplication::init()
         exit(-1);
     }
 
-    GLuint texture;
+    // GLuint texture;
 
-    stbi_set_flip_vertically_on_load(true);
-    GLint width, height, channels;
-    auto texture_file = std::string(PROJECT_DIR) + "/Models/multicolor.png";
-    auto img = stbi_load(texture_file.c_str(), &width, &height, &channels, 0);
-    if (!img) {
-        std::cerr<<"Could not read image from file `"<<texture_file<<"'\n";
-    } else {
-        std::cout<<"Loaded a "<<width<<"x"<<height<<" texture with "<<channels<<" channels\n";
+    // stbi_set_flip_vertically_on_load(true);
+    // GLint width, height, channels;
+    // auto texture_file = std::string(PROJECT_DIR) + "/Models/multicolor.png";
+    // auto img = stbi_load(texture_file.c_str(), &width, &height, &channels, 0);
+    // if (!img) {
+    //     std::cerr<<"Could not read image from file `"<<texture_file<<"'\n";
+    // } else {
+    //     std::cout<<"Loaded a "<<width<<"x"<<height<<" texture with "<<channels<<" channels\n";
         
-        glGenTextures(1, &texture);
-        glBindTexture(GL_TEXTURE_2D, texture);
+    //     glGenTextures(1, &texture);
+    //     glBindTexture(GL_TEXTURE_2D, texture);
 
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, img);
+    //     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, img);
 
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    }
-    stbi_image_free(img);
+    //     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	
+    //     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    //     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    //     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    // }
+    // stbi_image_free(img);
 
     xe::ColorMaterial::init();
     set_camera(new xe::Camera);
@@ -97,24 +94,26 @@ void SimpleShapeApplication::init()
     glBufferData(GL_UNIFORM_BUFFER, 16 * sizeof(GLfloat), nullptr, GL_STATIC_DRAW);
     glBindBuffer(GL_UNIFORM_BUFFER, 0);
 
-    xe::ColorMaterial *pyramidTexture = new xe::ColorMaterial(
-        getModifiedColorVec(
-            glm::vec4(1.0, 0.0, 0.5, 0.0), 
-            colorModificator, 
-            strengthModificator
-        ),
-        texture,
-        0
-    );
+    // xe::ColorMaterial *pyramidTexture = new xe::ColorMaterial(
+    //     getModifiedColorVec(
+    //         glm::vec4(1.0, 0.0, 0.5, 0.0), 
+    //         colorModificator, 
+    //         strengthModificator
+    //     )
+    // );
 
-    pyramid = new xe::Mesh;
-    pyramid->allocate_vertex_buffer(sizeof(vertices)*sizeof(float), GL_STATIC_DRAW);
-    pyramid->load_vertices(0, sizeof(vertices), vertices);
-    pyramid->vertex_attrib_pointer(0, 3, GL_FLOAT, 5 * sizeof(float), (0));
-    pyramid->vertex_attrib_pointer(1, 2, GL_FLOAT, 5 * sizeof(float), 3*sizeof(float));
-    pyramid->allocate_index_buffer(sizeof(indices) * sizeof(float), GL_STATIC_DRAW);
-    pyramid->load_indices(0, sizeof(indices), indices);
-    pyramid->add_submesh(0, 18, pyramidTexture);
+    // pyramid = new xe::Mesh;
+    // pyramid->allocate_vertex_buffer(sizeof(vertices)*sizeof(float), GL_STATIC_DRAW);
+    // pyramid->load_vertices(0, sizeof(vertices), vertices);
+    // pyramid->vertex_attrib_pointer(0, 3, GL_FLOAT, 5 * sizeof(float), (0));
+    // pyramid->vertex_attrib_pointer(1, 2, GL_FLOAT, 5 * sizeof(float), 3*sizeof(float));
+    // pyramid->allocate_index_buffer(sizeof(indices) * sizeof(float), GL_STATIC_DRAW);
+    // pyramid->load_indices(0, sizeof(indices), indices);
+    // pyramid->add_submesh(0, 18, pyramidTexture);
+
+    pyramid = xe::load_mesh_from_obj(std::string(ROOT_DIR) + "/Models/pyramid.obj",
+                                          std::string(ROOT_DIR) + "/Models");
+
     add_submesh(pyramid);
 
     glBindBufferBase(GL_UNIFORM_BUFFER, 1, v_buffer_handle_uniforms_move);
