@@ -19,9 +19,9 @@
 
 #include "ObjectReader/obj_reader.h"
 #include "Engine/ColorMaterial.h"
+#include "Engine/PhongMaterial.h"
 #include "Engine/Mesh.h"
 #include "Engine/texture.h"
-// #include "Engine/PhongMaterial.h"
 
 
 namespace {
@@ -168,7 +168,7 @@ namespace {
     // xe::Material *make_phong_material(const xe::mtl_material_t &mat, std::string mtl_dir) {
     //     auto material = new xe::PhongMaterial;
     //     material->Kd = get_color(mat.diffuse);
-    //     SPDLOG_DEBUG("Adding ColorMaterial {}", glm::to_string(material->Kd));
+    //     SPDLOG_DEBUG("Adding PhongMaterial {}", glm::to_string(material->Kd));
     //     material->map_Kd = 0;
     //     if (!mat.diffuse_texname.empty()) {
     //         auto texture = xe::create_texture(mtl_dir + "/" + mat.diffuse_texname);

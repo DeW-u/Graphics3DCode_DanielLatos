@@ -14,8 +14,7 @@ void xe::Mesh::draw() const {
         if(submeshes_[i].mat != nullptr) {
             submeshes_[i].mat->bind();
         }
-        glDrawElements(GL_TRIANGLES, submeshes_[i].count(), GL_UNSIGNED_INT, reinterpret_cast<void*>(submeshes_[i].start));
-        submeshes_[i].mat->unbind();
+        glDrawElements(GL_TRIANGLES, submeshes_[i].count(), GL_UNSIGNED_SHORT, reinterpret_cast<void*>(sizeof(GLushort)*submeshes_[i].start));
     }
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0u);
     glBindVertexArray(0u);

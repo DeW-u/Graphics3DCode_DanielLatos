@@ -2,6 +2,7 @@
 
 layout (location = 0) out vec4 vFragColor;
 in vec2 vertex_texcoords;
+in vec3 vertex_normals_in_vs;
 
 uniform sampler2D map_Kd;
 
@@ -16,6 +17,7 @@ layout(std140, binding=0) uniform Modifiers {
 
 
 void main() {
+    vec3 normal = normalize(vertex_normals_in_vs);
     if (use_map_Kd == false) {
         vFragColor = Kd;
     } else {
