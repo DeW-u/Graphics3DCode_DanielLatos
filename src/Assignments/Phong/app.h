@@ -14,6 +14,7 @@
 #include "Engine/camera_controler.h"
 #include "Engine/Mesh.h"
 #include "Engine/mesh_loader.h"
+#include "Engine/Light.h"
 
 #include "glad/gl.h"
 
@@ -81,10 +82,22 @@ public:
         return colorResult;
     }
 
+    void add_light(const xe::PointLight &p_light) {
+        p_lights_.push_back(p_light); 
+    }
+
+    void add_ambient(glm::vec3 ambient) {
+        ambient_ = ambient;
+    }
+
 private:
     GLuint vao_;
     GLuint v_buffer_handle_uniforms_move;
     std::vector<xe::Mesh*> meshes_; 
 
     glm::mat4 M_;
+
+    GLuint v_buffer_handle_unifroms_light;
+    glm::vec3 ambient_;
+    std::vector<xe::PointLight> p_lights_;
 };

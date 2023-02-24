@@ -16,7 +16,6 @@ namespace xe {
         GLuint use_map_Kd = 0;
         glBindBufferBase(GL_UNIFORM_BUFFER, 0, color_uniform_buffer_);
         glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(glm::vec4), &color_);
-        glBindBuffer(GL_UNIFORM_BUFFER, 0u);
         if(texture_ > 0) {
             glUniform1i(uniform_map_Kd_location_, texture_unit_);
             glActiveTexture(GL_TEXTURE0 + texture_unit_);
@@ -25,9 +24,10 @@ namespace xe {
         }
 
         glBufferSubData(GL_UNIFORM_BUFFER, sizeof(glm::vec4), sizeof(GLuint), &use_map_Kd);
+        glBindBuffer(GL_UNIFORM_BUFFER, 0u);
     }
 
-    void PhongMaterial ::unbind() {
+    void PhongMaterial::unbind() {
 
     }
 
@@ -35,8 +35,8 @@ namespace xe {
 
 
         auto program = xe::utils::create_program(
-                {{GL_VERTEX_SHADER,   std::string(PROJECT_DIR) + "/shaders/color_vs.glsl"},
-                 {GL_FRAGMENT_SHADER, std::string(PROJECT_DIR) + "/shaders/color_fs.glsl"}});
+                {{GL_VERTEX_SHADER,   std::string(PROJECT_DIR) + "/shaders/phong_vs.glsl"},
+                 {GL_FRAGMENT_SHADER, std::string(PROJECT_DIR) + "/shaders/phong_fs.glsl"}});
         if (!program) {
             std::cerr << "Invalid program" << std::endl;
             exit(-1);
