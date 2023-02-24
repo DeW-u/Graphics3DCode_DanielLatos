@@ -49,3 +49,8 @@ Po terminie.
 13.02.2023 13:57 OK
 Ale Meshes przestał działać bo nie sparwdza Pan czy mat jest null przy odbindowaniu. Poza tym zupełnie niepotrzebnie tworzy Pan osobny mesh dla każej ścianki. Po to sa submesze w jednym meshu.
 
+# Textures
+
+24.02.2023 14:20 OK
+Ale pozostawił Pan niepotrzebny kod w app.cpp. Ładuje Pan szadery których Pan potem nie uzywa. 
+
